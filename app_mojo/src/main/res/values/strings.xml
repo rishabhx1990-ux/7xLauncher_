@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_short_name">MJLauncher</string>
+    <string name="app_short_name">7xLauncher</string>
 
     <!-- Action bar part -->
 
@@ -21,7 +21,7 @@
     <string name="alerttitle_installmod">Select a mod installer</string>
 
     <!-- Error messages -->
-    <string name="error_fatal">MJLauncher has unexpectedly crashed</string>
+    <string name="error_fatal">7xLauncher has unexpectedly crashed</string>
     <string name="error_no_version">No version!</string>
     <string name="error_show_more">Show more</string>
     <string name="error_show_less">Show less</string>
@@ -34,8 +34,7 @@
     -->
 
     <!-- MCLauncherActivity: Tabs -->
-    <string name="mcl_tab_wiki">Wiki</string>
-
+    <string name="mcl_tab_wiki">YouTube</string>
     <!-- MCLauncherActivity: Account status -->
 
     <!-- MCLauncherActivity: Strings -->
@@ -541,4 +540,5 @@
     <string name="mjdl_download_error_subtitle">Download failed. Check your internet connection and make sure that you have enough free disk space.</string>
     <string name="mjdl_download_error_subtitle_2">File verification failed. Please try again. If this error keeps happening, contact us on GitHub or on Discord.</string>
     <string name="bta_configuring">Configuring BTA…</string>
+    <string name="storage_required">7xLauncher requires external storage to be attached. Please reconnect it and restart the app.</string>
 </resources>

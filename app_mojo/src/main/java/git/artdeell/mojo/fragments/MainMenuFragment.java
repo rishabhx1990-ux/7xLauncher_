@@ -82,7 +82,7 @@ public class MainMenuFragment extends Fragment {
         mDiscordButton.setOnClickListener(v ->
                   Tools.openURL(
                       requireActivity(),
-                      "https://discord.gg/9s53eZJch2"
+                      getString(R.string.social_media_invite)
         )
         );
                 )

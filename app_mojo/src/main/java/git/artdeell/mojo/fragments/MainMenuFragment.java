@@ -5,6 +5,7 @@ import static git.artdeell.mojo.Tools.shareLog;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,11 +39,11 @@ public class MainMenuFragment extends Fragment {
     private mcVersionSpinner mVersionSpinner;
 
     private final ActivityResultLauncher<Object> mModInstallerLauncher =
-            registerForActivityResult(new OpenDocumentWithExtension("jar"), (data)->{
-                if(data != null) Tools.launchModInstaller(requireContext(), data);
+            registerForActivityResult(new OpenDocumentWithExtension("jar"), (data) -> {
+                if (data != null) Tools.launchModInstaller(requireContext(), data);
             });
 
-    public MainMenuFragment(){
+    public MainMenuFragment() {
         super(R.layout.fragment_launcher);
     }
 
@@ -55,40 +56,71 @@ public class MainMenuFragment extends Fragment {
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
         Button mOpenDirectoryButton = view.findViewById(R.id.open_files_button);
 
+        // YouTube button: requires youtube_button in fragment_launcher.xml
+        Button mYouTubeButton = view.findViewById(R.id.youtube_button);
+
         ImageButton mEditProfileButton = view.findViewById(R.id.edit_profile_button);
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
-        mNewsButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
-        mDiscordButton.setOnClickListener(v -> Tools.openURL(requireActivity(), getString(R.string.social_media_invite)));
-        mCustomControlButton.setOnClickListener(v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
+        mNewsButton.setOnClickListener(v ->
+                Tools.openURL(requireActivity(), Tools.URL_HOME));
+
+        mDiscordButton.setOnClickListener(v ->
+                Tools.openURL(requireActivity(), getString(R.string.social_media_invite)));
+
+        mYouTubeButton.setOnClickListener(v ->
+                startActivity(new Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://youtube.com/@7xpojav")
+                )));
+
+        mCustomControlButton.setOnClickListener(v ->
+                startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
+
         mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation());
-        mEditProfileButton.setOnClickListener(v -> mVersionSpinner.openProfileEditor(requireActivity()));
 
-        mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
+        mEditProfileButton.setOnClickListener(v ->
+                mVersionSpinner.openProfileEditor(requireActivity()));
 
-        mShareLogsButton.setOnClickListener((v) -> shareLog(requireContext()));
+        mPlayButton.setOnClickListener(v ->
+                ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
 
-        mOpenDirectoryButton.setOnClickListener((v)-> openGameDirectory(v.getContext()));
+        mShareLogsButton.setOnClickListener(v ->
+                shareLog(requireContext()));
 
+        mOpenDirectoryButton.setOnClickListener(v ->
+                openGameDirectory(v.getContext()));
 
-        mNewsButton.setOnLongClickListener((v)->{
-            Tools.swapFragment(requireActivity(), GamepadMapperFragment.class, GamepadMapperFragment.TAG, null);
+        mNewsButton.setOnLongClickListener(v -> {
+            Tools.swapFragment(
+                    requireActivity(),
+                    GamepadMapperFragment.class,
+                    GamepadMapperFragment.TAG,
+                    null
+            );
             return true;
         });
     }
 
     private void openGameDirectory(Context context) {
         Instance instance = Instances.loadSelectedInstance();
-        if(instance == null) {
+
+        if (instance == null) {
             Toast.makeText(context, R.string.no_instance, Toast.LENGTH_LONG).show();
             return;
         }
+
         File gameDirectory = instance.getGameDirectory();
-        if(FileUtils.ensureDirectorySilently(gameDirectory)) {
+
+        if (FileUtils.ensureDirectorySilently(gameDirectory)) {
             openPath(context, gameDirectory, false);
-        }else {
-            Toast.makeText(context, R.string.gamedir_open_failed, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(
+                    context,
+                    R.string.gamedir_open_failed,
+                    Toast.LENGTH_LONG
+            ).show();
         }
     }
 
@@ -101,6 +133,12 @@ public class MainMenuFragment extends Fragment {
     private void runInstallerWithConfirmation() {
         if (ProgressKeeper.getTaskCount() == 0) {
             mModInstallerLauncher.launch(null);
-        } else Toast.makeText(requireContext(), R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(
+                    requireContext(),
+                    R.string.tasks_ongoing,
+                    Toast.LENGTH_LONG
+            ).show();
+        }
     }
 }

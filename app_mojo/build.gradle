@@ -50,7 +50,7 @@ configurations {
 }
 
 android {
-    namespace 'com.7x.launcher'
+    namespace 'com.x7.launcher'
 
     compileSdk = 36
 
@@ -80,7 +80,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.7x.launcher"
+        applicationId "com.x7.launcher"
         minSdkVersion 21
         targetSdkVersion 36
         versionCode getDateSeconds()
@@ -110,8 +110,8 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.customDebug
-            resValue 'string', 'application_package', 'com.7x.launcher.debug'
-            resValue 'string', 'storageProviderAuthorities', 'com.7x.launcher.scoped.gamefolder.debug'
+            resValue 'string', 'application_package', 'com.x7.launcher.debug'
+            resValue 'string', 'storageProviderAuthorities', 'com.x7.launcher.scoped.gamefolder.debug'
         }
         proguard {
             initWith debug
@@ -131,8 +131,8 @@ android {
             // defaultConfig already set
             // multiDexEnabled = true
             // debuggable = true
-            resValue 'string', 'storageProviderAuthorities', 'com.7x.launcher.scoped.gamefolder'
-            resValue 'string', 'application_package', 'com.7x.launcher'
+            resValue 'string', 'storageProviderAuthorities', 'com.x7.launcher.scoped.gamefolder'
+            resValue 'string', 'application_package', 'com.x7.launcher'
         }
         gplay {
             initWith release

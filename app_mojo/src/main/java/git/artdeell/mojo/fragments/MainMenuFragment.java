@@ -5,7 +5,6 @@ import static git.artdeell.mojo.Tools.shareLog;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +20,6 @@ import com.kdt.mcgui.mcVersionSpinner;
 
 import git.artdeell.mojo.CustomControlsActivity;
 import git.artdeell.mojo.R;
-
 import git.artdeell.mojo.Tools;
 import git.artdeell.mojo.contracts.OpenDocumentWithExtension;
 import git.artdeell.mojo.extra.ExtraConstants;
@@ -36,19 +34,32 @@ import java.io.File;
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
 
+    private static final String YOUTUBE_URL =
+            "https://youtube.com/@7xpojav?si=susWn7zoKZM7IkVg";
+
     private mcVersionSpinner mVersionSpinner;
 
     private final ActivityResultLauncher<Object> mModInstallerLauncher =
-            registerForActivityResult(new OpenDocumentWithExtension("jar"), (data) -> {
-                if (data != null) Tools.launchModInstaller(requireContext(), data);
-            });
+            registerForActivityResult(
+                    new OpenDocumentWithExtension("jar"),
+                    (data) -> {
+                        if (data != null) {
+                            Tools.launchModInstaller(requireContext(), data);
+                        }
+                    }
+            );
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(
+            @NonNull View view,
+            @Nullable Bundle savedInstanceState
+    ) {
+        super.onViewCreated(view, savedInstanceState);
+
         Button mNewsButton = view.findViewById(R.id.news_button);
         Button mDiscordButton = view.findViewById(R.id.social_media_button);
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
@@ -56,58 +67,70 @@ public class MainMenuFragment extends Fragment {
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
         Button mOpenDirectoryButton = view.findViewById(R.id.open_files_button);
 
-        // YouTube button: requires youtube_button in fragment_launcher.xml
-        Button mYouTubeButton = view.findViewById(R.id.youtube_button);
+        ImageButton mEditProfileButton =
+                view.findViewById(R.id.edit_profile_button);
 
-        ImageButton mEditProfileButton = view.findViewById(R.id.edit_profile_button);
         Button mPlayButton = view.findViewById(R.id.play_button);
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
+        // YouTube button
         mNewsButton.setOnClickListener(v ->
-                Tools.openURL(requireActivity(), Tools.URL_HOME));
+                Tools.openURL(requireActivity(), YOUTUBE_URL)
+        );
 
+        // Discord button
         mDiscordButton.setOnClickListener(v ->
-                Tools.openURL(requireActivity(), getString(R.string.social_media_invite)));
+                Tools.openURL(
+                        requireActivity(),
+                        getString(R.string.social_media_invite)
+                )
+        );
 
-        mYouTubeButton.setOnClickListener(v ->
-                startActivity(new Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("https://youtube.com/@7xpojav")
-                )));
-
+        // Custom controls
         mCustomControlButton.setOnClickListener(v ->
-                startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
+                startActivity(
+                        new Intent(
+                                requireContext(),
+                                CustomControlsActivity.class
+                        )
+                )
+        );
 
-        mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation());
+        // Install JAR
+        mInstallJarButton.setOnClickListener(v ->
+                runInstallerWithConfirmation()
+        );
 
+        // Edit profile
         mEditProfileButton.setOnClickListener(v ->
-                mVersionSpinner.openProfileEditor(requireActivity()));
+                mVersionSpinner.openProfileEditor(requireActivity())
+        );
 
+        // Play Minecraft
         mPlayButton.setOnClickListener(v ->
-                ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));
+                ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true)
+        );
 
+        // Share logs
         mShareLogsButton.setOnClickListener(v ->
-                shareLog(requireContext()));
+                shareLog(requireContext())
+        );
 
+        // Open game directory
         mOpenDirectoryButton.setOnClickListener(v ->
-                openGameDirectory(v.getContext()));
-
-        mNewsButton.setOnLongClickListener(v -> {
-            Tools.swapFragment(
-                    requireActivity(),
-                    GamepadMapperFragment.class,
-                    GamepadMapperFragment.TAG,
-                    null
-            );
-            return true;
-        });
+                openGameDirectory(v.getContext())
+        );
     }
 
     private void openGameDirectory(Context context) {
         Instance instance = Instances.loadSelectedInstance();
 
         if (instance == null) {
-            Toast.makeText(context, R.string.no_instance, Toast.LENGTH_LONG).show();
+            Toast.makeText(
+                    context,
+                    R.string.no_instance,
+                    Toast.LENGTH_LONG
+            ).show();
             return;
         }
 
@@ -127,7 +150,10 @@ public class MainMenuFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ExtraCore.setValue(ExtraConstants.REFRESH_ACCOUNT_SPINNER, true);
+        ExtraCore.setValue(
+                ExtraConstants.REFRESH_ACCOUNT_SPINNER,
+                true
+        );
     }
 
     private void runInstallerWithConfirmation() {

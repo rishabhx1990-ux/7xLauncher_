@@ -275,7 +275,7 @@
     <string name="preference_gyro_sample_rate_description">If you have performance issues with gyroscope controls, increase this.</string>
     <string name="microsoft_login_retry_later">Too many requests, please try again later.</string>
     <string name="microsoft_login_generic">Error: %s</string>
-    <string name="storage_required">MJLauncher requires external storage to be attached. Please reconnect it and restart the app.</string>
+    <string name="storage_required">7xLauncher requires external storage to be attached. Please reconnect it and restart the app.</string>
     <string name="mcl_setting_title_buttonallcaps">Only use capital letters in button labels</string>
     <string name="mcl_setting_subtitle_buttonallcaps">Disable this if you want to use lowercase letters in your controls.</string>
     <string name="create_instance">Create new instance</string>
@@ -435,7 +435,7 @@
     <string name="mcl_button_social_media">Discord</string>
     <string name="ltw_render_distance_warning_msg">Your GPU is not capable of rendering above 7 render distance without Sodium or other similar mods. The render distance will be automatically reduced when you click "OK".</string>
     <string name="mcl_button_open_directory">Open game directory</string>
-    <string name="social_media_invite" translatable="false">https://discord.gg/VHdwQFsaGX</string>
+    <string name="social_media_invite" translatable="false">https://discord.gg/9s53eZJch2</string>
     <string name="local_login_bad_username_title">Unsuitable username</string>
     <string name="local_login_bad_username_text">The username must be between 3–16 characters long, and must only contain latin letters, numbers 0–9 and underscores.</string>
     <string name="quick_setting_title">Quick settings</string>
@@ -540,5 +540,4 @@
     <string name="mjdl_download_error_subtitle">Download failed. Check your internet connection and make sure that you have enough free disk space.</string>
     <string name="mjdl_download_error_subtitle_2">File verification failed. Please try again. If this error keeps happening, contact us on GitHub or on Discord.</string>
     <string name="bta_configuring">Configuring BTA…</string>
-    <string name="storage_required">7xLauncher requires external storage to be attached. Please reconnect it and restart the app.</string>
 </resources>

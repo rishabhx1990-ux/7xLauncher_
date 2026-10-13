@@ -50,7 +50,7 @@ configurations {
 }
 
 android {
-    namespace 'git.artdeell.mojo'
+    namespace 'com.7x.launcher'
 
     compileSdk = 36
 
@@ -80,23 +80,23 @@ android {
     }
 
     defaultConfig {
-        applicationId "git.artdeell.mjlaunch"
+        applicationId "com.7x.launcher"
         minSdkVersion 21
         targetSdkVersion 36
         versionCode getDateSeconds()
         versionName getVersionName()
         multiDexEnabled false //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
-        resValue 'string', 'group_id', 'git.artdeell'
+        resValue 'string', 'group_id', 'com.x7'
     }
 
     flavorDimensions  = ["runtime"]
-    
+
     productFlavors {
         full {
             dimension "runtime"
         }
-        
+
         noruntime {
             dimension "runtime"
             versionNameSuffix "-noruntime"
@@ -110,8 +110,8 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.customDebug
-            resValue 'string', 'application_package', 'git.artdeell.mjlaunch.debug'
-            resValue 'string', 'storageProviderAuthorities', 'git.artdeell.mjlaunch.scoped.gamefolder.debug'
+            resValue 'string', 'application_package', 'com.7x.launcher.debug'
+            resValue 'string', 'storageProviderAuthorities', 'com.7x.launcher.scoped.gamefolder.debug'
         }
         proguard {
             initWith debug
@@ -131,8 +131,8 @@ android {
             // defaultConfig already set
             // multiDexEnabled = true
             // debuggable = true
-            resValue 'string', 'storageProviderAuthorities', 'git.artdeell.mjlaunch.scoped.gamefolder'
-            resValue 'string', 'application_package', 'git.artdeell.mjlaunch'
+            resValue 'string', 'storageProviderAuthorities', 'com.7x.launcher.scoped.gamefolder'
+            resValue 'string', 'application_package', 'com.7x.launcher'
         }
         gplay {
             initWith release
@@ -239,7 +239,7 @@ class AssetTaskRegistrar {
     }
 
     def onlineZipDependency(String downloadUrl, String name, String relativePath) {
-	    mergeAssetsTask.dependsOn(onlineUnzipTask downloadUrl, name, assetDestination(relativePath))
+        mergeAssetsTask.dependsOn(onlineUnzipTask downloadUrl, name, assetDestination(relativePath))
     }
 
     def projectJarDependency(Project project, String relativePath) {
@@ -298,15 +298,14 @@ afterEvaluate {
 
         registrar.projectJarDependency project(":forge_installer"), "components/forge_installer"
 
-		if (variant.getName().toLowerCase().contains("full")) {
+        if (variant.getName().toLowerCase().contains("full")) {
             registrar.jreRuntimeDependency 8, "components/jre"
         }
-        
-		def cacioJarUrl = "https://jitpack.io/com/github/MojoLauncher/%1\$s/%2\$s/%3\$s/%2\$s-%3\$s%4\$s.jar"
+
+        def cacioJarUrl = "https://jitpack.io/com/github/MojoLauncher/%1\$s/%2\$s/%3\$s/%2\$s-%3\$s%4\$s.jar"
 
         registrar.onlineJarDependency cacioJarUrl, "caciocavallo", "cacio-shared", "-9ba6264d8c-1", "", "components/caciocavallo"
         registrar.onlineJarDependency cacioJarUrl, "caciocavallo", "cacio-androidnw", "-9ba6264d8c-1", "", "components/caciocavallo"
-
         registrar.onlineJarDependency cacioJarUrl, "caciocavallo17", "cacio-tta", "d4553e5689", "-jar-with-dependencies", "components/caciocavallo17"
     }
 }
@@ -331,7 +330,7 @@ dependencies {
     implementation 'com.github.Mathias-Boulay:virtual-joystick-android:1.14'
 
     // implementation 'com.intuit.sdp:sdp-android:1.0.5'
-    // implementation 'com.intuit.ssp:ssp-android:1.0.5'
+    // implementation 'com.intuit.ssp:sdp-android:1.0.5'
 
     implementation 'org.tukaani:xz:1.10'
     // Our version of exp4j can be built from source at
